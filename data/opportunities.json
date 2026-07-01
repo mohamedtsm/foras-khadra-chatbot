@@ -1,0 +1,134 @@
+[
+  {
+    "id": 1,
+    "title": "منحة DAAD للدراسات العليا - ألمانيا",
+    "type": "منحة دراسية",
+    "country": "Germany",
+    "field": "engineering, renewable energy, technology",
+    "deadline": "2026-10-01",
+    "funding": "full",
+    "eligibility": "bachelor's degree, under 35",
+    "description": "منحة ممولة بالكامل لدراسة الماجستير في ألمانيا في مجالات الهندسة والطاقة المتجددة والتكنولوجيا."
+  },
+  {
+    "id": 2,
+    "title": "برنامج AIESEC Global Volunteer - تونس",
+    "type": "تطوع",
+    "country": "Tunisia",
+    "field": "environment, education, youth",
+    "deadline": "2026-08-15",
+    "funding": "partial",
+    "eligibility": "18-30 years, any degree",
+    "description": "فرصة تطوع دولي لمدة 6 أسابيع في مجال البيئة والتعليم للشباب في تونس."
+  },
+  {
+    "id": 3,
+    "title": "منحة Chevening - المملكة المتحدة",
+    "type": "منحة دراسية",
+    "country": "United Kingdom",
+    "field": "any field",
+    "deadline": "2026-11-05",
+    "funding": "full",
+    "eligibility": "2 years work experience, bachelor's degree",
+    "description": "منحة حكومية بريطانية لدراسة الماجستير في أي تخصص في جامعات المملكة المتحدة."
+  },
+  {
+    "id": 4,
+    "title": "برنامج التدريب الصيفي - Microsoft Egypt",
+    "type": "تدريب",
+    "country": "Egypt",
+    "field": "software engineering, AI, cloud",
+    "deadline": "2026-07-20",
+    "funding": "paid internship",
+    "eligibility": "3rd or 4th year CS/engineering students",
+    "description": "برنامج تدريب صيفي مدفوع لمدة 3 أشهر في مجال الهندسة البرمجية والذكاء الاصطناعي والحوسبة السحابية."
+  },
+  {
+    "id": 5,
+    "title": "منحة Erasmus+ - أوروبا",
+    "type": "منحة دراسية",
+    "country": "Europe",
+    "field": "any field",
+    "deadline": "2026-09-30",
+    "funding": "full",
+    "eligibility": "enrolled university student",
+    "description": "برنامج تبادل طلابي أوروبي يتيح للطلاب الدراسة في جامعات أوروبية مختلفة لفصل دراسي أو أكثر."
+  },
+  {
+    "id": 6,
+    "title": "مسابقة NASA Space Apps Challenge",
+    "type": "مسابقة",
+    "country": "Global",
+    "field": "technology, space, engineering, AI",
+    "deadline": "2026-10-15",
+    "funding": "prizes",
+    "eligibility": "open to all",
+    "description": "مسابقة عالمية من NASA لحل تحديات علمية وتقنية باستخدام البيانات الفضائية. فرصة للتواصل والجوائز."
+  },
+  {
+    "id": 7,
+    "title": "برنامج Youth Leadership - الأمم المتحدة",
+    "type": "برنامج قيادي",
+    "country": "Switzerland",
+    "field": "leadership, diplomacy, sustainability",
+    "deadline": "2026-08-01",
+    "funding": "full",
+    "eligibility": "18-25 years, leadership experience",
+    "description": "برنامج قيادي مكثف للشباب في جنيف يركز على التنمية المستدامة ومهارات القيادة والدبلوماسية."
+  },
+  {
+    "id": 8,
+    "title": "منحة Orange Corners - ريادة الأعمال",
+    "type": "منحة ريادية",
+    "country": "Algeria",
+    "field": "entrepreneurship, startup, business",
+    "deadline": "2026-09-01",
+    "funding": "seed funding + mentorship",
+    "eligibility": "startup founders, 18-35",
+    "description": "برنامج دعم رواد الأعمال الشباب في الجزائر مع تمويل أولي وإرشاد من خبراء دوليين."
+  },
+  {
+    "id": 9,
+    "title": "تدريب Google Summer of Code",
+    "type": "تدريب",
+    "country": "Remote",
+    "field": "software, open source, programming",
+    "deadline": "2026-04-02",
+    "funding": "paid",
+    "eligibility": "university students, programming skills",
+    "description": "برنامج تدريب مدفوع من Google للمساهمة في مشاريع مفتوحة المصدر عن بُعد خلال الصيف."
+  },
+  {
+    "id": 10,
+    "title": "منحة مؤسسة Ford الدولية",
+    "type": "منحة دراسية",
+    "country": "USA",
+    "field": "social sciences, arts, education, policy",
+    "deadline": "2026-12-01",
+    "funding": "full",
+    "eligibility": "PhD students, social impact focus",
+    "description": "منحة دكتوراه كاملة للطلاب الملتزمين بالعدالة الاجتماعية والتغيير الإيجابي في مجتمعاتهم."
+  },
+  {
+    "id": 11,
+    "title": "برنامج تطوع بيئي - المغرب",
+    "type": "تطوع",
+    "country": "Morocco",
+    "field": "environment, climate, agriculture",
+    "deadline": "2026-07-30",
+    "funding": "accommodation provided",
+    "eligibility": "18-30, any background",
+    "description": "فرصة تطوع في مشاريع زراعة الأشجار ومكافحة التصحر في المناطق الريفية بالمغرب."
+  },
+  {
+    "id": 12,
+    "title": "مسابقة IEEE Xtreme Programming",
+    "type": "مسابقة",
+    "country": "Global",
+    "field": "programming, computer science",
+    "deadline": "2026-10-20",
+    "funding": "prizes + certificates",
+    "eligibility": "IEEE student members",
+    "description": "مسابقة برمجة دولية تنافسية لمدة 24 ساعة متواصلة للطلاب الجامعيين أعضاء IEEE."
+  }
+]

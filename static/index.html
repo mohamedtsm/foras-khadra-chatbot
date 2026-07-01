@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>فرص خضراء - المساعد الذكي</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --green-dark: #1a4731; --green-mid: #2d7a4f; --green-light: #4caf7d;
+      --green-pale: #e8f5ee; --white: #ffffff; --gray-100: #f7f7f7;
+      --gray-200: #ebebeb; --gray-500: #888; --gray-800: #222;
+      --shadow: 0 2px 12px rgba(0,0,0,0.08);
+    }
+    body { font-family: 'Cairo', sans-serif; background: var(--gray-100); color: var(--gray-800); min-height: 100vh; display: flex; flex-direction: column; }
+    header { background: var(--green-dark); padding: 16px 24px; display: flex; align-items: center; gap: 12px; box-shadow: var(--shadow); }
+    .header-left { display: flex; align-items: center; gap: 12px; flex: 1; }
+    header h1 { color: var(--white); font-size: 20px; font-weight: 700; }
+    header p  { color: rgba(255,255,255,0.65); font-size: 12px; }
+    .lang-switcher { display: flex; gap: 4px; }
+    .lang-btn { background: transparent; border: 1.5px solid rgba(255,255,255,0.35); color: rgba(255,255,255,0.7); padding: 5px 10px; border-radius: 8px; font-family: 'Cairo', sans-serif; font-size: 12px; cursor: pointer; transition: all 0.2s; }
+    .lang-btn:hover { border-color: white; color: white; }
+    .lang-btn.active { background: rgba(255,255,255,0.2); border-color: white; color: white; font-weight: 700; }
+    main { flex: 1; max-width: 760px; width: 100%; margin: 0 auto; padding: 24px 16px; display: flex; flex-direction: column; gap: 16px; }
+    .suggestions { display: flex; flex-wrap: wrap; gap: 8px; }
+    .suggestion-btn { background: var(--white); border: 1.5px solid var(--green-light); color: var(--green-dark); padding: 8px 14px; border-radius: 20px; font-family: 'Cairo', sans-serif; font-size: 13px; cursor: pointer; transition: all 0.2s; }
+    .suggestion-btn:hover { background: var(--green-pale); border-color: var(--green-mid); }
+    #chat-box { flex: 1; background: var(--white); border-radius: 16px; padding: 20px; min-height: 420px; max-height: 480px; overflow-y: auto; display: flex; flex-direction: column; gap: 14px; box-shadow: var(--shadow); }
+    .welcome-msg { text-align: center; color: var(--gray-500); font-size: 14px; margin: auto; padding: 20px; }
+    .message { display: flex; gap: 10px; align-items: flex-start; animation: fadeIn 0.25s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+    .message.user { flex-direction: row-reverse; }
+    .avatar { width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
+    .message.bot .avatar  { background: var(--green-pale); }
+    .message.user .avatar { background: var(--green-dark); }
+    .bubble { max-width: 78%; padding: 12px 16px; border-radius: 16px; font-size: 14px; line-height: 1.7; white-space: pre-wrap; }
+    .message.bot .bubble  { background: var(--green-pale); color: var(--gray-800); border-top-right-radius: 4px; }
+    .message.user .bubble { background: var(--green-dark); color: var(--white); border-top-left-radius: 4px; }
+    .typing .bubble { display: flex; gap: 5px; align-items: center; padding: 14px 18px; }
+    .dot { width: 8px; height: 8px; background: var(--green-mid); border-radius: 50%; animation: bounce 1.2s infinite; }
+    .dot:nth-child(2) { animation-delay: 0.2s; }
+    .dot:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes bounce { 0%, 80%, 100% { transform: translateY(0); } 40% { transform: translateY(-7px); } }
+    .input-area { background: var(--white); border-radius: 16px; padding: 14px 16px; display: flex; gap: 10px; align-items: center; box-shadow: var(--shadow); border: 1.5px solid var(--gray-200); transition: border-color 0.2s; }
+    .input-area:focus-within { border-color: var(--green-light); }
+    #user-input { flex: 1; border: none; outline: none; font-family: 'Cairo', sans-serif; font-size: 14px; color: var(--gray-800); background: transparent; resize: none; max-height: 100px; }
+    #send-btn { background: var(--green-mid); border: none; color: white; width: 40px; height: 40px; border-radius: 10px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 18px; transition: background 0.2s; flex-shrink: 0; }
+    #send-btn:hover    { background: var(--green-dark); }
+    #send-btn:disabled { background: var(--gray-200); cursor: not-allowed; }
+    footer { text-align: center; padding: 12px; font-size: 11px; color: var(--gray-500); }
+    footer a { color: var(--green-mid); text-decoration: none; }
+
+
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-left">
+    <img src="/logo.png" alt="Foras Khadra" style="width:42px;height:42px;object-fit:contain;border-radius:8px;background:white;padding:2px;">
+    <div>
+      <h1>فرص خضراء</h1>
+      <p id="header-sub"></p>
+    </div>
+  </div>
+  <div class="lang-switcher">
+    <button class="lang-btn" onclick="setLang('ar')">ع</button>
+    <button class="lang-btn" onclick="setLang('fr')">FR</button>
+    <button class="lang-btn" onclick="setLang('en')">EN</button>
+  </div>
+</header>
+
+<main>
+  <div class="suggestions" id="suggestions-container"></div>
+  <div id="chat-box"></div>
+  <div class="input-area">
+    <textarea id="user-input" rows="1"></textarea>
+    <button id="send-btn" onclick="sendMessage()">➤</button>
+  </div>
+</main>
+
+<footer>
+  Powered by <a href="https://foraskhadra.com" target="_blank">Foras Khadra</a>
+</footer>
+
+<script>
+
+  const T = {
+    ar: {
+      dir: 'rtl', lang: 'ar',
+      headerSub: 'المساعد الذكي للفرص والمنح',
+      welcome: 'أهلاً! أنا مساعدك الذكي في فرص خضراء.<br/>اسألني عن المنح، التدريب، التطوع، أو المسابقات.',
+      placeholder: 'اكتب سؤالك هنا... ما الفرص المناسبة لي؟',
+      errorMsg: '⚠️ حدث خطأ. تأكد من تشغيل الخادم وصحة مفتاح API.',
+      suggestions: ['🎓 منح دراسية في أوروبا','🌍 فرص تطوع دولي','💻 تدريب في مجال التكنولوجيا','🚀 فرص ريادة الأعمال','📋 ما هي الفرص المتاحة؟']
+    },
+    fr: {
+      dir: 'ltr', lang: 'fr',
+      headerSub: 'Assistant intelligent pour les opportunités',
+      welcome: 'Bonjour! Je suis votre assistant Foras Khadra.<br/>Posez-moi des questions sur les bourses, stages, bénévolat ou concours.',
+      placeholder: 'Écrivez votre question ici...',
+      errorMsg: '⚠️ Une erreur est survenue. Vérifiez le serveur et la clé API.',
+      suggestions: ['🎓 Bourses en Europe','🌍 Bénévolat international','💻 Stage en technologie','🚀 Opportunités entrepreneuriat','📋 Quelles sont les opportunités?']
+    },
+    en: {
+      dir: 'ltr', lang: 'en',
+      headerSub: 'Smart assistant for opportunities & grants',
+      welcome: 'Hello! I\'m your smart assistant at Foras Khadra.<br/>Ask me about scholarships, internships, volunteering, or competitions.',
+      placeholder: 'Type your question here...',
+      errorMsg: '⚠️ An error occurred. Check the server and API key.',
+      suggestions: ['🎓 Scholarships in Europe','🌍 International volunteering','💻 Tech internships','🚀 Entrepreneurship opportunities','📋 What opportunities are available?']
+    }
+  };
+
+  let currentLang = 'ar';
+  let history = [];
+  let chatStarted = false;
+
+  const chatBox   = document.getElementById('chat-box');
+  const input     = document.getElementById('user-input');
+  const sendBtn   = document.getElementById('send-btn');
+
+  function setLang(lang) {
+    currentLang = lang;
+    const t = T[lang];
+
+    // page direction
+    document.documentElement.lang = t.lang;
+    document.documentElement.dir  = t.dir;
+
+    // header subtitle
+    document.getElementById('header-sub').textContent = t.headerSub;
+
+    // input placeholder
+    input.placeholder = t.placeholder;
+
+    // active button
+    document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.lang-btn').forEach(b => {
+      if (b.textContent.trim() === (lang === 'ar' ? 'ع' : lang.toUpperCase())) {
+        b.classList.add('active');
+      }
+    });
+
+    // suggestions
+    const container = document.getElementById('suggestions-container');
+    container.innerHTML = '';
+    t.suggestions.forEach(s => {
+      const btn = document.createElement('button');
+      btn.className = 'suggestion-btn';
+      btn.textContent = s;
+      btn.onclick = () => sendSuggestion(s);
+      container.appendChild(btn);
+    });
+
+    // welcome message (always update, even after chat started)
+    if (!chatStarted) {
+      chatBox.innerHTML = `
+        <div class="welcome-msg">
+          <img src="/logo.png" style="width:60px;height:60px;object-fit:contain;display:block;margin:0 auto 12px;">
+          <span>${t.welcome}</span>
+        </div>`;
+    }
+  }
+
+  // init
+  setLang('ar');
+
+  input.addEventListener('keydown', e => {
+    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
+  });
+
+  input.addEventListener('input', () => {
+    input.style.height = 'auto';
+    input.style.height = input.scrollHeight + 'px';
+  });
+
+  function sendSuggestion(text) { input.value = text; sendMessage(); }
+
+  async function sendMessage() {
+    const text = input.value.trim();
+    if (!text) return;
+
+    if (!chatStarted) { chatBox.innerHTML = ''; chatStarted = true; }
+
+    addMessage('user', text);
+    input.value = '';
+    input.style.height = 'auto';
+    sendBtn.disabled = true;
+
+    const typingId = addTyping();
+
+    try {
+      const res = await fetch('/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: text, history })
+      });
+      const data = await res.json();
+      removeTyping(typingId);
+      addMessage('bot', data.reply);
+      history.push({ role: 'user', content: text });
+      history.push({ role: 'assistant', content: data.reply });
+      if (history.length > 12) history = history.slice(-12);
+    } catch (err) {
+      removeTyping(typingId);
+      addMessage('bot', T[currentLang].errorMsg);
+    }
+
+    sendBtn.disabled = false;
+    input.focus();
+  }
+
+  function addMessage(role, text) {
+    const div = document.createElement('div');
+    div.className = `message ${role}`;
+    div.innerHTML = `<div class="avatar">${role === 'bot' ? '🌿' : '👤'}</div><div class="bubble">${escapeHtml(text)}</div>`;
+    chatBox.appendChild(div);
+    chatBox.scrollTop = chatBox.scrollHeight;
+  }
+
+  function addTyping() {
+    const id = 'typing-' + Date.now();
+    const div = document.createElement('div');
+    div.className = 'message bot typing';
+    div.id = id;
+    div.innerHTML = `<div class="avatar">🌿</div><div class="bubble"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>`;
+    chatBox.appendChild(div);
+    chatBox.scrollTop = chatBox.scrollHeight;
+    return id;
+  }
+
+  function removeTyping(id) { const el = document.getElementById(id); if (el) el.remove(); }
+
+  function escapeHtml(text) {
+    return text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br/>');
+  }
+</script>
+
+</body>
+</html>
