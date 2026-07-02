@@ -50,6 +50,8 @@ uvicorn main:app --reload
 ```
 http://localhost:8000
 ```
+## 🚀 Live Demo
+https://foras-khadra-chatbot.onrender.com
 
 ## 🧠 How It Works
 
